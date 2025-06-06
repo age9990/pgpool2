@@ -803,7 +803,7 @@ connect_inet_domain_socket_by_port(char *host, int port, bool retry)
 	{
 		if ((ret = getaddrinfo(host, portstr, &hints, &res)) != 0)
 		{
-			if (ret != EAI_AGAIN)
+			if (!retry || ret != EAI_AGAIN)
 			{
 				ereport(WARNING,
 						(errmsg("failed to connect to PostgreSQL server, getaddrinfo() failed with error \"%s\"",
